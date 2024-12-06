@@ -12,7 +12,11 @@ function App() {
   const dispatch = useAppDispatch();
   const [simulateError, setSimulateError] = useState(false);
 
-  const { register, handleSubmit } = useForm<addUserFormType>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<addUserFormType>({
     resolver: yupResolver(addUserFormSchema),
   });
 
@@ -52,6 +56,7 @@ function App() {
           </div>
         )}
         <AddUserForm
+          errors={errors}
           onSubmit={onSubmit}
           handleSubmit={handleSubmit}
           ageInputProps={{
