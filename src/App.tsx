@@ -2,23 +2,21 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "./state/hooks";
 import { clearUsers } from "./state/user/userSlice";
 import { addUser } from "./state/user/actions/addUser";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { addUserFormSchema, addUserFormType } from "./lib/yup/addUserForm";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 function App() {
   const { users, error, loading } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [simulateError, setSimulateError] = useState(false);
 
-  const [newUser, setNewUser] = useState({
-    name: "",
-    email: "",
-    company: "",
-    age: 30,
+  const { register, handleSubmit } = useForm<addUserFormType>({
+    resolver: yupResolver(addUserFormSchema),
   });
 
-  const handleAddUser = () => {
-    dispatch(addUser({ newUser, shouldFail: simulateError }));
-    // Reset form
-    setNewUser({ name: "", email: "", company: "", age: 0 });
+  const onSubmit: SubmitHandler<addUserFormType> = (data) => {
+    dispatch(addUser({ newUser: data, shouldFail: simulateError }));
   };
 
   const handleClearUsers = () => {
@@ -52,47 +50,42 @@ function App() {
             {error}
           </div>
         )}
-        <div className="mb-4 grid grid-cols-2 gap-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="mb-4 grid grid-cols-2 gap-4"
+        >
           <input
             type="text"
             placeholder="Name"
-            value={newUser.name}
-            onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
             className="border p-2 rounded"
+            {...register("name")}
           />
           <input
             type="email"
             placeholder="Email"
-            value={newUser.email}
-            onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
             className="border p-2 rounded"
+            {...register("email")}
           />
           <input
             type="text"
             placeholder="Company"
-            value={newUser.company}
-            onChange={(e) =>
-              setNewUser({ ...newUser, company: e.target.value })
-            }
             className="border p-2 rounded"
+            {...register("company")}
           />
           <input
             type="number"
             placeholder="Age"
-            value={newUser.age}
-            onChange={(e) =>
-              setNewUser({ ...newUser, age: parseInt(e.target.value) || 0 })
-            }
             className="border p-2 rounded"
+            {...register("age")}
           />
           <button
-            onClick={handleAddUser}
+            type="submit"
             className="bg-green-500 text-white px-4 py-2 rounded col-span-2 disabled:cursor-not-allowed"
-            disabled={!newUser.name || !newUser.email || loading}
+            disabled={loading}
           >
             {loading ? "Adding user..." : "Add User"}
           </button>
-        </div>
+        </form>
         <div>
           <h2 className="text-xl font-semibold mb-2">Users List</h2>
           {users.length === 0 ? (
