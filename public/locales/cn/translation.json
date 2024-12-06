@@ -1,0 +1,16 @@
+{
+    "form_nameLabel": "姓名",
+    "form_companyLabel": "公司",
+    "form_ageLabel": "年龄",
+    "form_emailLabel": "电子邮件",
+    "form_submitButtonLabel": "添加用户",
+    "form_submitButtonLoading": "正在加载...",
+    "card_name": "姓名",
+    "card_company": "公司",
+    "card_age": "年龄",
+    "card_email": "电子邮件",
+    "mainTitle": "用户管理",
+    "clearUserButtonLabel": "清除所有用户",
+    "simulateApiErrorButtonLabel": "模拟API错误",
+    "listTitle": "用户列表"
+}
