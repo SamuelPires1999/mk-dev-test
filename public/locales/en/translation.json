@@ -1,0 +1,16 @@
+{
+    "form_nameLabel": "Name",
+    "form_companyLabel": "Company",
+    "form_ageLabel": "Age",
+    "form_emailLabel": "Email",
+    "form_submitButtonLabel": "Add User",
+    "form_submitButtonLoading": "Loading...",
+    "card_name": "Name",
+    "card_company": "Company",
+    "card_age": "Age",
+    "card_email": "Email",
+    "mainTitle": "User Management",
+    "clearUserButtonLabel": "Clear All Users",
+    "simulateApiErrorButtonLabel": "Simulate API Error",
+    "listTitle": "Users List"
+}
