@@ -5,6 +5,7 @@ import { addUser } from "./state/user/actions/addUser";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addUserFormSchema, addUserFormType } from "./lib/yup/addUserForm";
 import { yupResolver } from "@hookform/resolvers/yup";
+import AddUserForm from "./components/AddUserForm";
 
 function App() {
   const { users, error, loading } = useAppSelector((state) => state.user);
@@ -50,42 +51,35 @@ function App() {
             {error}
           </div>
         )}
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="mb-4 grid grid-cols-2 gap-4"
-        >
-          <input
-            type="text"
-            placeholder="Name"
-            className="border p-2 rounded"
-            {...register("name")}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            className="border p-2 rounded"
-            {...register("email")}
-          />
-          <input
-            type="text"
-            placeholder="Company"
-            className="border p-2 rounded"
-            {...register("company")}
-          />
-          <input
-            type="number"
-            placeholder="Age"
-            className="border p-2 rounded"
-            {...register("age")}
-          />
-          <button
-            type="submit"
-            className="bg-green-500 text-white px-4 py-2 rounded col-span-2 disabled:cursor-not-allowed"
-            disabled={loading}
-          >
-            {loading ? "Adding user..." : "Add User"}
-          </button>
-        </form>
+        <AddUserForm
+          onSubmit={onSubmit}
+          handleSubmit={handleSubmit}
+          ageInputProps={{
+            type: "nuber",
+            placeholder: "Age",
+            className: "border p-2 rounded",
+            ...register("age"),
+          }}
+          nameInputProps={{
+            type: "text",
+            placeholder: "Name",
+            className: "border p-2 rounded",
+            ...register("name"),
+          }}
+          companyInputProps={{
+            type: "text",
+            placeholder: "Company",
+            className: "border p-2 rounded",
+            ...register("company"),
+          }}
+          emailInputProps={{
+            type: "text",
+            placeholder: "Email",
+            className: "border p-2 rounded",
+            ...register("email"),
+          }}
+          loading={loading}
+        />
         <div>
           <h2 className="text-xl font-semibold mb-2">Users List</h2>
           {users.length === 0 ? (
