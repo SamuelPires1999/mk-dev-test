@@ -3,7 +3,7 @@ import { addUser } from "./actions/addUser";
 import { User } from "./types";
 
 // Define State Interface
-interface UserState {
+export interface UserState {
   users: User[];
   loading: boolean;
   error: string | null;
